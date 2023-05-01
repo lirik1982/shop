@@ -5,5 +5,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("app.urls")),
 
-    path('authcart', include('authcart.urls')),
+    path('auth/', include('authcart.urls')),
 ]
