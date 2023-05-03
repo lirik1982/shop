@@ -12,7 +12,7 @@
     <div class="card bg-light p-4">
 
         <h4 class="text-dark">Authorization</h4>
-        <form action="auth/login" method="post">
+        <form action="{% url 'handlelogin' %}" method="post">
             {% csrf_token %}
             <label for="email">Email</label>
             <div class="form-group">

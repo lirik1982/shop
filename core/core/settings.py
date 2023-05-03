@@ -114,6 +114,15 @@ USE_I18N = True
 USE_TZ = True
 
 
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "lirik19@yandex.ru"
+EMAIL_HOST_PASSWORD = "!Welcome1982"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 

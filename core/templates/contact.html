@@ -2,5 +2,45 @@
 
 {% block title %}-Contact{% endblock %}
 
+{% block body %}
+    <h1 class="text-center mt-5">Contact US</h1>
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <form action="{% url 'contact' %}" method="post">
+                    {% csrf_token %}
+                    <br>
+                    <label for="name">Full Name</label>
+                    <div class="form-group">
+                        <input type="text" class="form-control p-2" id="name" name="name" required>
+                    </div>
+                    <label for="name">Email</label>
+                    <div class="form-group">
+                        <input type="email" class="form-control p-2" id="email" name="email" required>
+                    </div>
+                    <label for="pass1">How Can I Help You?</label>
+                    <div class="form-group">
+                        <textarea type="text" class="form-control p-2" id="desc" name="desc" required>
+                        </textarea>
+                    </div>
+                    <label for="pnumber">Phone Number</label>
+                    <div class="form-group">
+                        <input type="number" class="form-control p-2" id="pnumber" name="pnumber" required>
+                    </div>
 
 
+                    <br>
+                    <button type="submit" class="btn btn-dark">Submit</button>
+                    <br>
+                </form>
+
+
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+
+    </div>
+
+{% endblock body %}
