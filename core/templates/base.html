@@ -55,8 +55,13 @@
                 <li><a class="nav-link scrollto active" href="/">Home</a></li>
                 <li><a class="nav-link scrollto" href="/about">About</a></li>
                 <li><a class="nav-link scrollto" href="/blog">Blog</a></li>
-                <li><a class="nav-link scrollto" href="/blog">My Orders</a></li>
+                <li><a class="nav-link scrollto" href="/checkout">Checkout</a></li>
                 <li><a class="nav-link scrollto" href="/blog">My Profile</a></li>
+
+                <button type="button" class="nav-link scrollto bg-danger p-3 m-2 text-white" id="popcart"
+                        data-container="body" data-toggle="popover" data-placement="bottom" data-html="true">
+                    Cart(<span id="cart">0</span>)
+                </button>
 
 
                 {% if request.user.is_authenticated %}
@@ -73,7 +78,6 @@
                 {% endif %}
 
                 <li><a class="nav-link scrollto bg-danger p-2 m-2" href="/contact">Contact</a></li>
-                <li><a class="nav-link scrollto bg-dark p-2 m-2" href="/contact">Cart</a></li>
 
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
@@ -185,6 +189,49 @@
 
 <!-- Template Main JS File -->
 <script src="{% static '/js/main.js' %}"></script>
+
+
+<script>
+    if(localStorage.getItem('cart') == null) {
+        var cart = {};
+    } else {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        updateCart(cart);
+    }
+
+    $('.divpr').on('click', 'button.cart', function (){
+        var idstr = this.id.toString();
+        console.log(idstr);
+
+        if(cart[idstr] != undefined) {
+        qty = cart[idstr][0] + 1;
+        }   else {
+            qty = 1;
+            name = document.getElementById(('name' + idstr).innerHTML);
+            price = document.getElementById(('price' + idstr))
+            cart[idstr] = [qty, name, price]
+        }
+        updateCart(cart);
+
+        localStorage.setItem('cart', JSON.stringify(cart))
+        document.getElementById("cart").innerHTML - Object.keys(cart).length;
+        console.log((object.keys(cart)). length)
+        document.getElementById().click()
+        %}
+
+
+
+
+    })
+
+
+
+
+
+</script>
+
+
+
 
 </body>
 
