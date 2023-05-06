@@ -181,17 +181,24 @@
         class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
-<script src="{% static '/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<script src="{% static '/vendor/jquery/jquery-3.6.4.min.js' %}"></script>
+
+
+
 <script src="{% static '/vendor/glightbox/js/glightbox.min.js' %}"></script>
 <script src="{% static '/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
 <script src="{% static '/vendor/swiper/swiper-bundle.min.js' %}"></script>
 <script src="{% static '/vendor/php-email-form/validate.js' %}"></script>
+<script src="{% static '/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
 
 <!-- Template Main JS File -->
 <script src="{% static '/js/main.js' %}"></script>
 
 
 <script>
+
     if(localStorage.getItem('cart') == null) {
         var cart = {};
     } else {
@@ -211,21 +218,90 @@
             price = document.getElementById(('price' + idstr))
             cart[idstr] = [qty, name, price]
         }
+
         updateCart(cart);
 
         localStorage.setItem('cart', JSON.stringify(cart))
         document.getElementById("cart").innerHTML - Object.keys(cart).length;
-        console.log((object.keys(cart)). length)
-        document.getElementById().click()
-        %}
+        console.log(Object.keys(cart).length);
+        document.getElementById("popcart").click();
+    });
 
 
+    var j = jQuery.noConflict();
+    // Do something with jQuery
+    j( "popcart" ).popover();
 
+    updatePopover(cart);
+    function updatePopover(cart){
+        console.log('we are inside popover update');
 
+        var popStr = '';
+        var popStr = popStr + '<h5>Cart for your items in my shopping cart</h5>' +
+            '<div class="mx-2 my-2">';
+        var i = 1;
+        for (var item in cart){
+            popStr = popStr + "<b>" + i + "</b>. ";
+            popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 19) +
+                "..." + "<b>" + cart[item][0] + "</b>" + "Qty" + '<br>';
+            i = i + 1;
+        }
+
+        popStr = popStr + "</div> <a href='/checkout'><button class='btn " +
+            "btn-success' id='clearCart'>Checkout</button></a> <button class='btn" +
+            "btn-dark' onclick='clearCart()' id='clearCart'>ClearCart</button>"
+        document.getElementById('popcart').setAttribute('data-content', popStr);
+
+         $noConflict();
+        jQuery(document).ready(function ($) {
+        $("popcart").popover('show');
+        });
+
+        document.getElementById("popcart").click();
+    }
+
+    function clearCart() {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        for (var item in cart) {
+            document.getElementById('div' + item).innerHTML = '<button id="' + item + '" class="btn btn-success cart">Add to Card</button>'
+            localStorage.clear();
+            cart = {}
+            updateCart();
+
+            let clear = document.getElementById('popcart').click();
+            document.getElementById('popcart').click();
+        }
+    }
+    function updateCart() {
+        var sum = 0;
+        for (var item in cart) {
+            sum = sum + cart[item][0];
+            document.getElementById('div' + item).innerHTML = "<button id='minus" +
+                item + "'class='btn btn-success minus'>-</button> <span id='val" + item
+                + "''>" + cart[item][0] + "</span> <button id='plus" + item +
+                "class='btn btn-success plus'> + </button>";
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        document.getElementById('cart').innerHTML = sum;
+        console.log(cart);
+        updatePopover(cart);
+        document.getElementById("popcart").click();
+    }
+
+    $('.divpr').on('click', 'button.minus', function () {
+        a = this.id.slice(7,);
+        cart['pr' + a][0] = cart['pr'+ a][0] - 1;
+        cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
+        document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+        updateCart(cart);
     })
 
-
-
+    $('.divpr').on('click', 'button.plus', function () {
+        a = this.id.slice(6,);
+        cart['pr' + a][0] = cart['pr'+ a][0] + 1;
+        document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+        updateCart(cart);
+    })
 
 
 </script>
